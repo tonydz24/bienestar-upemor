@@ -14,16 +14,22 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Rutas protegidas temporales para pruebas
-Route::middleware(['auth', 'session.timeout'])->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('dashboard_test');
-    })->name('admin.dashboard');
+Route::middleware(['auth', 'account.active', 'session.timeout'])->group(function () {
+    Route::middleware('role:Administrador')->group(function () {
+        Route::get('/admin/dashboard', function () {
+            return view('dashboard_test');
+        })->name('admin.dashboard');
+    });
 
-    Route::get('/docente/dashboard', function () {
-        return view('dashboard_test');
-    })->name('docente.dashboard');
+    Route::middleware('role:Docente')->group(function () {
+        Route::get('/docente/dashboard', function () {
+            return view('dashboard_test');
+        })->name('docente.dashboard');
+    });
 
-    Route::get('/alumno/dashboard', function () {
-        return view('dashboard_test');
-    })->name('alumno.dashboard');
+    Route::middleware('role:Alumno')->group(function () {
+        Route::get('/alumno/dashboard', function () {
+            return view('dashboard_test');
+        })->name('alumno.dashboard');
+    });
 });

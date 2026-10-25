@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\RateLimiter;
 
 class AuthController extends Controller
 {
@@ -29,10 +30,19 @@ class AuthController extends Controller
             'email.email' => 'Ingresa un correo electrónico válido.',
             'password.required' => 'La contraseña es obligatoria.',
         ]);
+        $credentials['estado'] = 'ACTIVO';
+        $throttleKey = 'login|'.Str::lower(trim($credentials['email'])).'|'.$request->ip();
+
+        if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+            return back()->withErrors([
+                'email' => 'Las credenciales ingresadas no coinciden con nuestros registros.',
+            ])->onlyInput('email')->setStatusCode(429);
+        }
 
         $remember = $request->boolean('remember');
 
         if (Auth::attempt($credentials, $remember)) {
+            RateLimiter::clear($throttleKey);
             $request->session()->regenerate();
 
             // Evita mantener una cookie de "recordarme" previa si no se marcó la casilla.
@@ -50,6 +60,8 @@ class AuthController extends Controller
 
             return $this->redirectUserByRole();
         }
+
+        RateLimiter::hit($throttleKey, 60);
 
         return back()->withErrors([
             'email' => 'Las credenciales ingresadas no coinciden con nuestros registros.',
