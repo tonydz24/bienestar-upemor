@@ -187,6 +187,40 @@ class AuthTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_pending_users_cannot_log_in_with_correct_credentials(): void
+    {
+        $role = Rol::factory()->alumno()->create(['rol_id' => 3]);
+        $user = User::factory()->withRole($role)->create([
+            'email' => 'pendiente@example.test',
+            'estado' => 'PENDIENTE',
+        ]);
+
+        $response = $this->post(route('login.post'), [
+            'email' => $user->email,
+            'password' => $this->testPassword,
+        ]);
+
+        $response->assertSessionHasErrors('email', 'Las credenciales ingresadas no coinciden con nuestros registros.');
+        $this->assertGuest();
+    }
+
+    public function test_rejected_users_cannot_log_in_with_correct_credentials(): void
+    {
+        $role = Rol::factory()->alumno()->create(['rol_id' => 3]);
+        $user = User::factory()->withRole($role)->create([
+            'email' => 'rechazado@example.test',
+            'estado' => 'RECHAZADO',
+        ]);
+
+        $response = $this->post(route('login.post'), [
+            'email' => $user->email,
+            'password' => $this->testPassword,
+        ]);
+
+        $response->assertSessionHasErrors('email', 'Las credenciales ingresadas no coinciden con nuestros registros.');
+        $this->assertGuest();
+    }
+
     public function test_users_are_redirected_to_their_role_dashboard(): void
     {
         $users = [

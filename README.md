@@ -1,59 +1,130 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Bienestar UPEMOR
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Plataforma web de bienestar emocional para la comunidad estudiantil de la Universidad Politécnica del Estado de Morelos (UPEMOR), desarrollada como proyecto de estadía.
 
-## About Laravel
+> Estado: **en desarrollo temprano**. Hoy existen autenticación, registro de alumnos y aprobación/rechazo administrativo de solicitudes. Los módulos de bienestar (evaluaciones, citas, recursos, etc.) **no están implementados**. Para el detalle técnico completo consulta [docs/CONTEXTO_PARA_ANTIGRAVITY.md](docs/CONTEXTO_PARA_ANTIGRAVITY.md).
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 1. Propósito
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Ofrecer un espacio institucional donde los alumnos accedan a herramientas de bienestar emocional y donde personal autorizado (docentes/psicólogos y administradores) gestione el acompañamiento y la plataforma.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 2. Problema que busca resolver
 
-## Learning Laravel
+Centralizar el acceso, el seguimiento y la atención del bienestar emocional estudiantil con control de identidad, roles y privacidad, en lugar de procesos dispersos o manuales. El sistema debe tratar la información emocional/psicológica como sensible (ver precauciones en el documento de contexto).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 3. Tecnologías (comprobadas en el entorno local)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+| Componente | Versión |
+|---|---|
+| PHP | 8.2.12 (`composer.json` exige `^8.2`) |
+| Laravel | 12.69.2 |
+| Node.js / npm | 24.13.0 / 11.6.2 |
+| Vite | 7.x (build verificado con 7.3.7) |
+| Bootstrap | ^5.3.8 (npm) + `@popperjs/core` |
+| Tailwind CSS | ^4 (plugin de Vite presente, **no usado** por las vistas actuales) |
+| PHPUnit | ^11.5 |
+| BD real (local) | MariaDB/MySQL por driver `mysql` (versión no confirmada) |
+| BD de pruebas | SQLite en memoria |
 
-## Laravel Sponsors
+## 4. Arquitectura y estructura
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+MVC de Laravel con Blade. Sin Policies/Gates: la autorización usa middleware.
 
-### Premium Partners
+```
+app/Http/Controllers/        AuthController, RegisterController, Admin/SolicitudAlumnoController
+app/Http/Middleware/         EnsureUserHasRole, EnsureUserIsActive, CheckSessionTimeout
+app/Http/Requests/           RegisterAlumnoRequest
+app/Models/                  User, Rol, Estudiante, Docente, ProgramaEducativo
+bootstrap/app.php            Alias de middleware: role, account.active, session.timeout
+database/migrations/         Esquema (PK personalizadas: usuario_id, rol_id, programa_id)
+database/seeders/            DatabaseSeeder, ProgramasEducativosRegistroSeeder
+resources/views/             layouts/{auth,admin}, auth/{login,register}, admin/solicitudes, components/auth
+resources/css|js/            bienestar-bootstrap.css, bootstrap-app.js (los que usan los layouts)
+routes/web.php               Todas las rutas
+tests/Feature/               AuthTest, RegisterTest, AdminSolicitudesTest, MigrationStatesTest
+docs/                        Documentación de transferencia técnica
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 5. Requisitos locales
 
-## Contributing
+PHP 8.2+ (con extensiones habituales de Laravel y `pdo_mysql`), Composer, Node.js y npm, y un servidor MariaDB/MySQL para uso real. Para ejecutar solo las pruebas no se necesita MariaDB.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 6. Instalación y ejecución
 
-## Code of Conduct
+```powershell
+composer install
+npm install
+copy .env.example .env      # luego editar .env (no versionar)
+php artisan key:generate
+npm run build               # o npm run dev durante el desarrollo
+php artisan serve
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+> **No ejecutes `php artisan migrate` ni `db:seed` contra la base real sin autorización explícita.** Ver sección 12.
 
-## Security Vulnerabilities
+## 7. Variables de entorno (ejemplo, sin valores reales)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```dotenv
+APP_NAME="Bienestar UPEMOR"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
 
-## License
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=<nombre_de_la_base>
+DB_USERNAME=<usuario>
+DB_PASSWORD=<definir_localmente>
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+SESSION_DRIVER=file
+MAIL_MAILER=log
+
+# Solo requeridas por DatabaseSeeder (mínimo 12 caracteres). Nunca versionar.
+INITIAL_ADMIN_PASSWORD=
+INITIAL_DOCENTE_PASSWORD=
+# Opcional, solo para fábricas de pruebas
+TEST_USER_PASSWORD=
+```
+
+`.env.example` del repositorio trae los valores por defecto del esqueleto Laravel (SQLite); el `.env` local real apunta a MariaDB y no debe leerse ni compartirse.
+
+## 8. Roles
+
+- **Administrador**: gestiona el sistema; hoy puede aprobar/rechazar solicitudes de alumnos (`/admin/solicitudes`).
+- **Docente**: personal de acompañamiento psicológico; hoy solo tiene un panel provisional. Que tenga el rol **no** implica acceso a información psicológica sensible.
+- **Alumno**: se registra públicamente en `/registro`; queda `PENDIENTE` hasta aprobación; luego accede a un panel provisional.
+
+Los docentes y administradores **no** se registran públicamente.
+
+## 9. Funcionalidades implementadas
+
+- Login con correo/contraseña, solo cuentas `ACTIVO`, límite de 5 intentos fallidos por correo+IP, opción «Recordarme», logout, cierre por 15 min de inactividad.
+- Autorización por rol y estado en rutas protegidas.
+- Registro público de alumnos (estado `PENDIENTE`, correo `@upemor.edu.mx`, matrícula única, 6 carreras permitidas, creación transaccional usuario+perfil).
+- Módulo administrativo de solicitudes: listado paginado con filtro por estado y búsqueda, aprobar y rechazar (`PENDIENTE → ACTIVO|RECHAZADO`).
+- Layouts y diseño lavanda con Bootstrap (login, registro, panel de solicitudes).
+- 55 pruebas automatizadas.
+
+Parcial: dashboards por rol (placeholder `dashboard_test.blade.php` idéntico para los tres roles). Preparado en BD pero sin lógica: `password_reset_tokens`, `email_verified_at`, `estudiantes.saldo_puntos`, `estudiantes.permite_visualizacion`, tabla `docentes`.
+
+## 10. Funcionalidades pendientes
+
+Alta de docentes y administradores por administradores, recuperación de contraseña, verificación de correo, dashboards reales por rol, evaluaciones emocionales, bitácora y consentimientos, citas, recursos/meditación, encuestas, recompensas, notificaciones, reportes, gestión de usuarios (bloqueo/inactivación) y auditoría. Detalle en el documento de contexto.
+
+## 11. Pruebas y compilación
+
+```powershell
+php artisan test      # SQLite en memoria; no toca MariaDB
+npm run build         # genera public/build (ignorado por git)
+```
+
+Último resultado verificado: 55 pruebas, 211 aserciones, todas aprobadas; build de Vite exitoso.
+
+## 12. Precauciones con la base de datos
+
+- Hay una base MariaDB real con datos; no ejecutar `migrate`, `migrate:fresh`, `migrate:refresh`, `db:wipe` ni `db:seed` sin autorización y respaldo previo.
+- La migración `2026_01_01_000006_*` modifica el `ENUM` de `users.estado` (cambia el valor por defecto a `PENDIENTE`) y añade un índice único a `roles.nombre`; no hay confirmación de que ya esté aplicada en MariaDB.
+- `DatabaseSeeder` inserta IDs fijos y **no es idempotente**; `ProgramasEducativosRegistroSeeder` sí lo es.
+- Las pruebas usan SQLite, cuyo comportamiento difiere de MariaDB.
+- No commitear `.env`, respaldos ni credenciales.

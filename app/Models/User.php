@@ -42,4 +42,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Rol::class, 'rol_id', 'rol_id');
     }
+
+    public function estudiante()
+    {
+        return $this->hasOne(Estudiante::class, 'usuario_id', 'usuario_id');
+    }
+
+    public function docente()
+    {
+        return $this->hasOne(Docente::class, 'usuario_id', 'usuario_id');
+    }
 }
