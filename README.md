@@ -209,17 +209,17 @@ En el directorio [`docs/`](docs/) se encuentran los manuales y referencias técn
 División Académica de Ingeniería en Tecnologías de la Información
 
 ### Desarrolladores y Coautores del Proyecto:
-- **[Nombre Completo del Desarrollador / Coautor 1]**
-  - **Matrícula / Correo Institucional:** `[Matrícula o correo @upemor.edu.mx]`
-  - **Contribuciones Principales:** `[Confirmar áreas de desarrollo: ej. Arquitectura backend, MariaDB, seguridad, QA]`
+- **Arantxa Miranda Ramirez**
+  - **MRAO230737** 
+    
 
-- **[Nombre Completo de la Desarrolladora / Coautora 2]**
-  - **Matrícula / Correo Institucional:** `[Matrícula o correo @upemor.edu.mx]`
-  - **Contribuciones Principales:** `[Confirmar áreas de desarrollo: ej. Análisis de requerimientos, frontend, módulos de bienestar]`
+- **Manuel Antonio Arellano Díaz**
+  - **ADMO230179** 
+  
 
 ### Supervisión y Acompañamiento Institucional:
-- **Asesor(a) Académico(a) UPEMOR:** `[Nombre del Asesor(a) Institucional]`
-- **Área de Acompañamiento / Psicología:** `[Departamento de Psicología / Orientación Educativa UPEMOR]`
+- **Dra. Sandra Elizabeth León Sosa** 
+
 
 ---
 
