@@ -52,7 +52,7 @@ Para desplegar y ejecutar el proyecto en un entorno local de desarrollo (Windows
 
 ### Paso 1: Clonar el Repositorio
 ```bash
-git clone https://github.com/<usuario>/bienestar-upemor.git
+git clone https://github.com/tonydz24/bienestar-upemor.git
 cd bienestar-upemor
 ```
 
