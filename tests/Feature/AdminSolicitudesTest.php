@@ -259,4 +259,18 @@ class AdminSolicitudesTest extends TestCase
 
         $this->assertSame('PENDIENTE', $alumno->fresh()->estado);
     }
+
+    public function test_clear_filters_shows_all_requests_across_all_statuses(): void
+    {
+        $this->crearAlumno('PENDIENTE', ['nombre' => 'Alumno Pendiente']);
+        $this->crearAlumno('ACTIVO', ['nombre' => 'Alumno Aprobado']);
+        $this->crearAlumno('RECHAZADO', ['nombre' => 'Alumno Rechazado']);
+
+        // Al pulsar Limpiar (estado=TODOS) se muestran todas las solicitudes
+        $response = $this->actingAs($this->admin)->get(route('admin.solicitudes.index', ['estado' => 'TODOS']));
+        $response->assertOk();
+        $response->assertSee('Alumno Pendiente');
+        $response->assertSee('Alumno Aprobado');
+        $response->assertSee('Alumno Rechazado');
+    }
 }

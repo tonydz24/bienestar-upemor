@@ -1,6 +1,8 @@
 @import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 :root {
+    --bienestar-font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     --bienestar-primary: #6f42c1;
     --bienestar-primary-dark: #56329a;
     --bienestar-lavender: #eee7ff;
@@ -525,3 +527,1931 @@ body.bienestar-theme {
     .admin-filters { grid-template-columns: 1fr; }
     .admin-filters-actions { justify-content: stretch; }
 }
+
+/* ==========================================================================
+   PORTAL DASHBOARD — IDENTIDAD VISUAL (MOCKUPS BIENESTAR UPEMOR)
+   ========================================================================== */
+
+body.bienestar-portal {
+    min-height: 100vh;
+    background-color: #f7f9fd;
+    color: #191e32;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+.portal-wrapper {
+    display: flex;
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+}
+
+/* Sidebar azul oscuro institucional */
+.portal-sidebar {
+    width: 255px;
+    background: #181c2e;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    z-index: 1040;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* En escritorio (>= 992px): sidebar fijo permanentemente al viewport con scroll propio */
+@media (min-width: 992px) {
+    .portal-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+    }
+
+    .portal-main-wrapper {
+        margin-left: 255px;
+        width: calc(100% - 255px);
+        min-height: 100vh;
+        min-height: 100dvh;
+    }
+}
+
+.portal-brand-box {
+    padding: 1.5rem 1.4rem 1.25rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+}
+
+.portal-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    text-decoration: none;
+}
+
+.portal-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.portal-brand-text .brand-sub {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.02em;
+}
+
+.portal-brand-text .brand-title {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.03em;
+}
+
+.portal-nav {
+    flex: 1 1 auto;
+    padding: 1.25rem 0.85rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+.portal-nav::-webkit-scrollbar {
+    width: 5px;
+}
+
+.portal-nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.portal-nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 4px;
+}
+
+.portal-nav::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.32);
+}
+
+.portal-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.portal-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.72rem 1rem;
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: background-color 0.18s ease,
+                color 0.18s ease,
+                transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.18s ease;
+}
+
+.portal-nav-link .nav-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    opacity: 0.85;
+    transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+.portal-nav-link:hover:not(.portal-link-disabled) {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.portal-nav-link:hover:not(.portal-link-disabled) .nav-icon {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.portal-nav-link:focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 1px;
+}
+
+.portal-nav-link.active {
+    background: #5c3be8;
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 6px 20px rgba(92, 59, 232, 0.38);
+}
+
+.portal-nav-link.active .nav-icon {
+    opacity: 1;
+}
+
+.nav-badge-pill {
+    margin-left: auto;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    transition: background-color 0.15s ease;
+}
+
+.portal-link-disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.portal-sidebar-footer {
+    padding: 1rem 0.85rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    flex-shrink: 0;
+}
+
+.portal-logout-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    width: 100%;
+    padding: 0.55rem 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.86rem;
+    font-weight: 500;
+    text-align: center;
+    transition: all 0.18s ease;
+}
+
+.portal-logout-btn:hover {
+    background: rgba(239, 68, 68, 0.18);
+    border-color: rgba(239, 68, 68, 0.35);
+    color: #fca5a5;
+    transform: none;
+}
+
+.portal-logout-btn:focus-visible {
+    outline: 2px solid #f87171;
+    outline-offset: 1px;
+}
+
+.portal-user-dropdown .dropdown-toggle::after {
+    display: none !important;
+}
+
+.portal-user-dropdown .dropdown-menu {
+    border: 1px solid rgba(139, 92, 246, 0.16) !important;
+    box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+}
+
+.portal-user-dropdown .dropdown-item:hover,
+.portal-user-dropdown .dropdown-item:focus {
+    background-color: #f5f3ff;
+    color: #6d28d9;
+}
+
+/* Área principal */
+.portal-main-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: #f7f9fd;
+}
+
+.portal-topbar {
+    height: 72px;
+    background: #ffffff;
+    border-bottom: 1px solid #e9edf4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    box-shadow: 0 2px 12px rgba(24, 28, 46, 0.02);
+}
+
+.portal-menu-toggle {
+    background: none;
+    border: none;
+    color: #181c2e;
+    padding: 0.35rem;
+    margin-right: 0.75rem;
+}
+
+.portal-topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-left: auto;
+}
+
+.portal-notif-btn {
+    position: relative;
+    background: #f4f6fa;
+    border: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.portal-notif-btn:hover {
+    background: #ebeef5;
+}
+
+.portal-notif-dot {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    width: 8px;
+    height: 8px;
+    background: #ff3b5c;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+}
+
+.portal-user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+}
+
+.portal-user-name {
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #181c2e;
+    line-height: 1.2;
+}
+
+.portal-user-role {
+    display: block;
+    font-size: 0.76rem;
+    color: #7a829a;
+}
+
+.portal-content {
+    padding: 2.25rem 2.25rem 3.5rem;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Encabezado de bienvenida */
+.portal-greeting-title {
+    font-size: clamp(1.8rem, 3.2vw, 2.25rem);
+    font-weight: 800;
+    color: #121626;
+    margin-bottom: 0.25rem;
+}
+
+.portal-greeting-sub {
+    color: #64748b;
+    font-size: 1.02rem;
+    margin-bottom: 1.75rem;
+}
+
+/* Tarjetas métricas superiores estilo Image 1 */
+.metric-summary-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #edf0f6;
+    padding: 1.35rem 1.4rem;
+    box-shadow: 0 4px 18px rgba(24, 28, 46, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 145px;
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.22s ease;
+}
+
+.metric-summary-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 26px rgba(24, 28, 46, 0.07), 0 2px 8px rgba(92, 59, 232, 0.04);
+    border-color: #e0d4fc;
+}
+
+.metric-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 0.75rem;
+}
+
+.metric-icon-circle {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.metric-circle-green {
+    background: #eefbf3;
+    color: #16a34a;
+}
+
+.metric-circle-orange {
+    background: #fff5eb;
+    color: #ea580c;
+}
+
+.metric-circle-blue {
+    background: #edf7ff;
+    color: #0284c7;
+}
+
+.metric-circle-purple {
+    background: #f4efff;
+    color: #7c3aed;
+}
+
+.metric-circle-rose {
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+.metric-label {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: #7e859b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.15rem;
+}
+
+.metric-value {
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.metric-value-green { color: #16a34a; }
+.metric-value-orange { color: #ea580c; }
+.metric-value-blue { color: #0284c7; }
+.metric-value-purple { color: #7c3aed; }
+.metric-value-rose { color: #e11d48; }
+
+.metric-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: #5c3be8;
+    text-decoration: none;
+}
+
+.metric-link:hover {
+    text-decoration: underline;
+    color: #4524c7;
+}
+
+/* Tarjetas grandes inferiores */
+.dashboard-section-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #edf0f6;
+    padding: 1.6rem 1.8rem;
+    box-shadow: 0 4px 20px rgba(24, 28, 46, 0.03);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.35rem;
+}
+
+.dashboard-card-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #121626;
+    margin: 0;
+}
+
+.dashboard-card-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #5c3be8;
+    text-decoration: none;
+}
+
+.dashboard-card-link:hover {
+    text-decoration: underline;
+}
+
+/* Próxima cita */
+.appointment-item-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fbfbfe;
+    border: 1px solid #eceff8;
+    border-radius: 14px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.15rem;
+}
+
+.appointment-icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: #fff0f3;
+    color: #f43f5e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.appointment-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    color: #64748b;
+    font-size: 0.88rem;
+    margin-bottom: 1.25rem;
+}
+
+.btn-portal-primary {
+    background: #5c3be8;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 0.72rem 1.5rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-portal-primary:hover {
+    background: #4726c9;
+    color: #ffffff;
+    transform: translateY(-1.5px);
+    box-shadow: 0 4px 12px rgba(92, 59, 232, 0.25);
+}
+
+.btn-portal-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(92, 59, 232, 0.2);
+}
+
+.btn-portal-primary:focus-visible {
+    outline: 2px solid #7c3aed;
+    outline-offset: 2px;
+}
+
+/* Pila de Notificaciones y Alertas del Portal */
+.portal-alerts-stack {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.portal-alert {
+    border-radius: 12px;
+    padding: 0.95rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 2px 8px rgba(18, 22, 38, 0.05);
+    border: 1px solid transparent;
+    opacity: 1;
+    max-height: 500px;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                margin 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.portal-alert-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex: 1 1 auto;
+}
+
+.portal-alert-icon {
+    font-size: 1.15rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.portal-alert-text {
+    flex: 1 1 auto;
+    font-size: 0.92rem;
+    line-height: 1.45;
+}
+
+.portal-alert-closing {
+    opacity: 0 !important;
+    max-height: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    transform: translateY(-6px);
+    pointer-events: none;
+}
+
+.portal-alert-success {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+    color: #166534;
+}
+
+.portal-alert-info {
+    background-color: #f5f3ff;
+    border-color: #ddd6fe;
+    color: #5b21b6;
+}
+
+.portal-alert-warning {
+    background-color: #fffbeb;
+    border-color: #fde68a;
+    color: #92400e;
+}
+
+.portal-alert-danger {
+    background-color: #fef2f2;
+    border-color: #fecaca;
+    color: #991b1b;
+}
+
+/* Recomendado para ti */
+.recommended-pill {
+    display: inline-block;
+    background: #f0eaff;
+    color: #7c3aed;
+    font-size: 0.76rem;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    margin-bottom: 0.85rem;
+}
+
+.recommended-body {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+/* Banner de apoyo respetuoso */
+.portal-guidance-banner {
+    background: linear-gradient(135deg, #f4efff 0%, #fdfcff 100%);
+    border: 1px solid #e3d7ff;
+    border-radius: 18px;
+    padding: 1.35rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 2rem;
+}
+
+.portal-guidance-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #7c3aed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15);
+}
+
+/* Adaptación responsiva para móviles */
+@media (max-width: 991.98px) {
+    .portal-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .portal-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .portal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(18, 22, 38, 0.55);
+        z-index: 1030;
+        display: none;
+    }
+
+    .portal-backdrop.show {
+        display: block;
+    }
+
+    .portal-content {
+        padding: 1.5rem 1rem 2.5rem;
+    }
+}
+
+
+
+/* ==========================================================================
+   Módulo de Bitácora Emocional - Diseño Renovado y Profesional
+   ========================================================================== */
+
+/* 0. Contenedor Principal Centrado para Bitácora Emocional */
+.bitacora-dashboard-container {
+    width: 100%;
+    max-width: 1380px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+/* 1. Encabezado Hero */
+.bitacora-hero-header {
+    background: linear-gradient(135deg, #ffffff 0%, #fbf9ff 60%, #f5efff 100%);
+    border: 1px solid rgba(124, 58, 237, 0.12);
+    border-radius: 20px;
+    padding: 1.35rem 1.75rem;
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.04);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.bitacora-hero-left {
+    display: flex;
+    align-items: center;
+    gap: 1.15rem;
+}
+
+.bitacora-hero-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #f0eaff 0%, #e9ddff 100%);
+    color: #581c87;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(88, 28, 135, 0.12);
+}
+
+.bitacora-hero-title {
+    font-family: var(--bienestar-font-heading);
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: #1e1b4b;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bitacora-hero-subtitle {
+    color: #64748b;
+    font-size: 0.92rem;
+    margin-bottom: 0;
+}
+
+.btn-bitacora-register {
+    background: #581c87;
+    color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    padding: 0.72rem 1.4rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: 0 4px 14px rgba(88, 28, 135, 0.25);
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+}
+
+.btn-bitacora-register:hover {
+    background: #45106b;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(88, 28, 135, 0.35);
+}
+
+.btn-bitacora-register:active {
+    transform: translateY(0);
+}
+
+.btn-bitacora-register:focus-visible {
+    outline: 2px solid #7c3aed;
+    outline-offset: 2px;
+}
+
+/* 2. Tarjetas Modulares de Bitácora */
+.bitacora-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(124, 58, 237, 0.08);
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.04);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: auto;
+    transition: box-shadow 0.25s ease;
+}
+
+.bitacora-card:hover {
+    box-shadow: 0 6px 24px rgba(124, 58, 237, 0.07);
+}
+
+.bitacora-card-header {
+    padding: 1.15rem 1.4rem;
+    background: #ffffff;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+
+.bitacora-card-title {
+    font-family: var(--bienestar-font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1e1b4b;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.bitacora-card-body {
+    padding: 1.35rem 1.4rem;
+    flex: 1 1 auto;
+}
+
+/* 3. Calendario */
+.bitacora-calendar-nav-title {
+    font-family: var(--bienestar-font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1e1b4b;
+}
+
+.btn-calendar-nav {
+    border-radius: 10px;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.85rem;
+    color: #475569;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    transition: all 0.15s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-calendar-nav:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+}
+
+.bitacora-calendar-wrapper {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #ede4ff;
+    overflow: hidden;
+}
+
+.bitacora-calendar-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    padding: 0.65rem 0.35rem;
+    background: #fbf9ff;
+    border-bottom: 1px solid #ede4ff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #64748b;
+    text-align: center;
+}
+
+.bitacora-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    padding: 4px;
+    background: #fbf9ff;
+}
+
+.calendar-day {
+    min-height: 76px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 0.45rem 0.55rem;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.calendar-day:hover:not(.calendar-day-empty):not(.is-future) {
+    background: #faf5ff;
+    border-color: #ddd6fe;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(124, 58, 237, 0.08);
+    z-index: 1;
+}
+
+.calendar-day.selected-day {
+    background: #f5efff !important;
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.35);
+    z-index: 2;
+}
+
+.calendar-day:focus-visible {
+    outline: 2px solid #7c3aed;
+    outline-offset: -1px;
+    z-index: 3;
+}
+
+.calendar-day.calendar-day-empty {
+    background: transparent;
+    border-color: transparent;
+    cursor: default;
+}
+
+.calendar-day.is-future {
+    background: #fcfcfd;
+    opacity: 0.45;
+    cursor: not-allowed;
+    border-color: transparent;
+}
+
+.calendar-day.has-entry {
+    background: #fdfcff;
+    border-color: #e9ddff;
+}
+
+.calendar-day.is-today .day-number {
+    background: #581c87;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.calendar-day .day-number {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.2rem;
+}
+
+.calendar-day .entry-badge {
+    border-radius: 8px;
+    padding: 0.15rem 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: auto;
+    transition: transform 0.15s ease;
+}
+
+.calendar-day:hover:not(.calendar-day-empty):not(.is-future) .entry-badge {
+    transform: scale(1.05);
+}
+
+/* 3.1 Selector de vistas de bitácora (Mes | Semana | Día) */
+.btn-view-mode {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #475569;
+    border: none;
+    background: transparent;
+    transition: all 0.15s ease;
+}
+
+.btn-view-mode:hover {
+    color: #1e1b4b;
+    background: #e2e8f0;
+}
+
+.btn-view-mode.active {
+    background: #6b21a8 !important;
+    color: #ffffff !important;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(107, 33, 168, 0.25);
+}
+
+/* Vista Semanal */
+.bitacora-week-wrapper {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #ede4ff;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.week-day-card {
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    background: #ffffff;
+    padding: 0.65rem 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all 0.18s ease;
+}
+
+.week-day-card:hover:not(.is-future) {
+    background: #faf5ff;
+    border-color: #ddd6fe;
+    transform: translateX(3px);
+}
+
+.week-day-card.selected-day {
+    background: #f5efff !important;
+    border-color: #8b5cf6 !important;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.35);
+}
+
+.week-day-card.is-today {
+    border-left: 4px solid #6b21a8;
+}
+
+.week-day-card.is-future {
+    background: #f8fafc;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Vista Diaria Enfocada */
+.bitacora-day-wrapper {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #ede4ff;
+    padding: 1.25rem 1rem;
+    text-align: center;
+}
+
+.day-view-hero-date {
+    font-family: var(--bienestar-font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1e1b4b;
+    margin-bottom: 0.25rem;
+}
+
+/* 4. Detalle de Registro */
+.detail-empty-box {
+    text-align: center;
+    padding: 1.75rem 1rem;
+    color: #64748b;
+}
+
+.detail-quote-box {
+    background: linear-gradient(135deg, #fcfaff 0%, #f7f2ff 100%);
+    border: 1px solid #ede4ff;
+    border-radius: 14px;
+    padding: 0.95rem 1.15rem;
+    margin-top: 0.85rem;
+    font-size: 0.9rem;
+    color: #334155;
+}
+
+.detail-quote-icon {
+    color: #8b5cf6;
+    opacity: 0.7;
+    margin-right: 0.35rem;
+}
+
+.btn-detail-action {
+    border-radius: 10px;
+    padding: 0.45rem 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    transition: all 0.18s ease;
+}
+
+/* 5. Catálogo de Emociones (Lista vertical compacta de 6 elementos) */
+.emotions-list-compact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.emotion-list-item {
+    background: #faf8ff;
+    border: 1px solid #f0eaff;
+    border-radius: 12px;
+    padding: 0.45rem 0.65rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+    user-select: none;
+}
+
+.emotion-list-item:hover {
+    background: #ffffff;
+    border-color: #ddd6fe;
+    transform: translateX(3px);
+    box-shadow: 0 3px 10px rgba(124, 58, 237, 0.08);
+}
+
+.emotion-list-item-icon {
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.emotion-list-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.emotion-list-item-name {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #1e1b4b;
+    line-height: 1.2;
+    margin-bottom: 0.1rem;
+}
+
+.emotion-list-item-desc {
+    font-size: 0.74rem;
+    color: #64748b;
+    line-height: 1.25;
+    margin-bottom: 0;
+}
+
+/* 6. Historial Cronológico y Filtros */
+.history-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.input-date-custom {
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    padding: 0.38rem 0.65rem;
+    font-size: 0.84rem;
+    background: #ffffff;
+    color: #334155;
+    transition: border-color 0.15s ease;
+}
+
+.input-date-custom:focus {
+    border-color: #8b5cf6;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.15);
+}
+
+.btn-filter-action {
+    border-radius: 10px;
+    padding: 0.38rem 0.85rem;
+    font-size: 0.84rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-table-action {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e2e8f0;
+    background: #ffffff;
+    color: #64748b;
+    padding: 0;
+    transition: all 0.15s ease;
+}
+
+.btn-table-action:hover {
+    background: #f8fafc;
+    color: #1e293b;
+    border-color: #cbd5e1;
+    transform: translateY(-1px);
+}
+
+.btn-table-action-edit:hover {
+    background: #f5f3ff;
+    color: #7c3aed;
+    border-color: #ddd6fe;
+}
+
+.btn-table-action-delete:hover {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+.history-mobile-card {
+    background: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 14px;
+    padding: 1rem 1.15rem;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.history-empty-state {
+    text-align: center;
+    padding: 3rem 1.5rem;
+    color: #64748b;
+}
+
+/* 7. Responsividad y Adaptabilidad de la Bitácora Emocional */
+@media (min-width: 1400px) {
+    .bitacora-dashboard-container {
+        max-width: 1380px;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .bitacora-dashboard-container {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .bitacora-hero-header {
+        padding: 1.25rem 1.4rem;
+        gap: 1rem;
+    }
+    .calendar-day {
+        min-height: 64px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .bitacora-hero-header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 1.15rem;
+        padding: 1.15rem 1rem;
+    }
+    .bitacora-hero-left {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    .btn-bitacora-register {
+        width: 100%;
+        justify-content: center;
+    }
+    .bitacora-card-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    .bitacora-card-header .ms-auto {
+        margin-left: 0 !important;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .calendar-day {
+        min-height: 52px;
+        padding: 0.2rem 0.25rem;
+    }
+    .calendar-day .day-number {
+        font-size: 0.72rem;
+    }
+    .bitacora-calendar-header {
+        font-size: 0.72rem;
+        padding: 0.4rem 0.2rem;
+    }
+    .history-filter-bar {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .history-filter-bar .d-flex {
+        width: 100%;
+        justify-content: space-between;
+    }
+    .input-date-custom {
+        flex: 1;
+    }
+    .btn-filter-action {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   Esferas 3D de Emociones y Microinteracciones
+   ========================================================================== */
+.emotion-sphere-img {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-drag: none;
+    display: inline-block;
+    vertical-align: middle;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, filter;
+}
+
+.emotion-card-label {
+    cursor: pointer;
+    transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    border-color: #e2e8f0 !important;
+    background-color: #ffffff !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .emotion-card-label:hover {
+        background-color: #fbf9ff !important;
+        border-color: #cbd5e1 !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+    }
+
+    /* Elevación ~5px, escala ~1.05 y resplandor según la emoción */
+    .emotion-card-label:hover .emotion-sphere-img,
+    .emotion-sphere-interactive:hover {
+        transform: translateY(-5px) scale(1.05);
+    }
+
+    .emotion-card-label:hover .emotion-sphere-alegria,
+    .emotion-sphere-interactive.emotion-sphere-alegria:hover {
+        filter: drop-shadow(0 6px 14px rgba(245, 158, 11, 0.55)) brightness(1.08);
+    }
+
+    .emotion-card-label:hover .emotion-sphere-calma,
+    .emotion-sphere-interactive.emotion-sphere-calma:hover {
+        filter: drop-shadow(0 6px 14px rgba(16, 185, 129, 0.55)) brightness(1.08);
+    }
+
+    .emotion-card-label:hover .emotion-sphere-ansiedad,
+    .emotion-sphere-interactive.emotion-sphere-ansiedad:hover {
+        filter: drop-shadow(0 6px 14px rgba(249, 115, 22, 0.55)) brightness(1.08);
+    }
+
+    .emotion-card-label:hover .emotion-sphere-estres,
+    .emotion-sphere-interactive.emotion-sphere-estres:hover {
+        filter: drop-shadow(0 6px 14px rgba(139, 92, 246, 0.6)) brightness(1.08);
+    }
+
+    .emotion-card-label:hover .emotion-sphere-tristeza,
+    .emotion-sphere-interactive.emotion-sphere-tristeza:hover {
+        filter: drop-shadow(0 6px 14px rgba(59, 130, 246, 0.55)) brightness(1.08);
+    }
+
+    .emotion-card-label:hover .emotion-sphere-enojo,
+    .emotion-sphere-interactive.emotion-sphere-enojo:hover {
+        filter: drop-shadow(0 6px 14px rgba(239, 68, 68, 0.6)) brightness(1.08);
+    }
+}
+
+/* Estado seleccionado persistente */
+.btn-check:checked + .emotion-card-label {
+    border-color: #7c3aed !important;
+    background-color: #f5f3ff !important;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.28);
+    transform: translateY(-1px);
+}
+
+.btn-check:checked + .emotion-card-label .emotion-sphere-img {
+    transform: translateY(-4px) scale(1.06);
+}
+
+.btn-check:checked + .emotion-card-label .emotion-sphere-alegria {
+    filter: drop-shadow(0 6px 14px rgba(245, 158, 11, 0.5)) brightness(1.06);
+}
+
+.btn-check:checked + .emotion-card-label .emotion-sphere-calma {
+    filter: drop-shadow(0 6px 14px rgba(16, 185, 129, 0.5)) brightness(1.06);
+}
+
+.btn-check:checked + .emotion-card-label .emotion-sphere-ansiedad {
+    filter: drop-shadow(0 6px 14px rgba(249, 115, 22, 0.5)) brightness(1.06);
+}
+
+.btn-check:checked + .emotion-card-label .emotion-sphere-estres {
+    filter: drop-shadow(0 6px 14px rgba(139, 92, 246, 0.55)) brightness(1.06);
+}
+
+.btn-check:checked + .emotion-card-label .emotion-sphere-tristeza {
+    filter: drop-shadow(0 6px 14px rgba(59, 130, 246, 0.5)) brightness(1.06);
+}
+
+.btn-check:checked + .emotion-card-label .emotion-sphere-enojo {
+    filter: drop-shadow(0 6px 14px rgba(239, 68, 68, 0.55)) brightness(1.06);
+}
+
+.btn-check:focus-visible + .emotion-card-label {
+    outline: 2px solid #7c3aed;
+    outline-offset: 2px;
+}
+
+/* Fallback accesible */
+.emotion-sphere-fallback {
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Modales con animación refinada y respetuosa */
+.modal.fade .modal-dialog {
+    transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.22s ease-out;
+    transform: scale(0.97) translateY(-10px);
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1) translateY(0);
+}
+
+@media (max-width: 575.98px) {
+    .calendar-day {
+        min-height: 52px;
+        padding: 0.25rem;
+    }
+
+    .calendar-day .entry-badge {
+        padding: 0.1rem 0.2rem;
+        justify-content: center;
+    }
+}
+
+/* ==========================================================================
+   MÓDULO DE EVALUACIONES PSICOLÓGICAS (Catálogo e Instrucciones)
+   ========================================================================== */
+
+.evaluacion-card {
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid #e9ddff;
+    padding: 1.5rem 1.6rem;
+    box-shadow: 0 4px 18px rgba(107, 33, 168, 0.04);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.evaluacion-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #7c3aed, #c084fc);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.evaluacion-card:hover {
+    transform: translateY(-3px);
+    border-color: #c4b5fd;
+    box-shadow: 0 10px 28px rgba(107, 33, 168, 0.09);
+}
+
+.evaluacion-card:hover::before {
+    opacity: 1;
+}
+
+.evaluacion-category-pill {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.28rem 0.75rem;
+    border-radius: 20px;
+    background: #f5efff;
+    color: #6b21a8;
+    border: 1px solid #e9ddff;
+}
+
+.evaluacion-category-ansiedad {
+    background: #fff7ed;
+    color: #c2410c;
+    border-color: #fed7aa;
+}
+
+.evaluacion-category-animo {
+    background: #ecfeff;
+    color: #0e7490;
+    border-color: #a5f3fc;
+}
+
+.evaluacion-category-estres {
+    background: #faf5ff;
+    color: #7e22ce;
+    border-color: #e9d5ff;
+}
+
+.evaluacion-category-bienestar {
+    background: #ecfdf5;
+    color: #047857;
+    border-color: #a7f3d0;
+}
+
+.evaluacion-meta-badge {
+    font-size: 0.78rem;
+    color: #64748b;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.evaluacion-instruction-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid #e9ddff;
+    box-shadow: 0 4px 22px rgba(107, 33, 168, 0.04);
+}
+
+.evaluacion-instruction-header {
+    background: linear-gradient(135deg, #f8f5ff 0%, #faf8ff 100%);
+    border-bottom: 1px solid #eee7ff;
+    padding: 1.5rem 1.8rem;
+    border-radius: 20px 20px 0 0;
+}
+
+.evaluacion-info-pill-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.65rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.evaluacion-scale-preview-item {
+    background: #faf8ff;
+    border: 1px solid #ede9fe;
+    border-radius: 10px;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.82rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ==========================================================================
+   Motor Interactivo de Cuestionarios (Entrega 3A)
+   ========================================================================== */
+.evaluacion-step-dot {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.evaluacion-step-dot:hover {
+    background: #f1f5f9;
+    border-color: #94a3b8;
+    color: #334155;
+    transform: translateY(-1px);
+}
+
+.evaluacion-step-dot.is-answered {
+    background: #ecfdf5;
+    border-color: #a7f3d0;
+    color: #059669;
+}
+
+.evaluacion-step-dot.is-current {
+    background: #f5efff;
+    border-color: #7c3aed;
+    color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+    font-weight: 700;
+}
+
+.evaluacion-step-dot.is-answered.is-current {
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+}
+
+.evaluacion-radio-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.15rem 1.25rem;
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    height: 100%;
+}
+
+.evaluacion-radio-card:hover {
+    border-color: #c4b5fd;
+    background: #faf8ff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.06);
+}
+
+.evaluacion-radio-card.is-selected {
+    border-color: #7c3aed;
+    background: #f8f5ff;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15), 0 4px 14px rgba(124, 58, 237, 0.08);
+}
+
+.radio-card-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2px solid #cbd5e1;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: transparent;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.evaluacion-radio-card.is-selected .radio-card-check {
+    border-color: #7c3aed;
+    background: #7c3aed;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+.cuestionario-step {
+    animation: fadeInStep 0.25s ease forwards;
+}
+
+@keyframes fadeInStep {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   Accesibilidad: Reducción de Movimiento (prefers-reduced-motion)
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .portal-sidebar,
+    .portal-nav-link,
+    .portal-logout-btn,
+    .metric-summary-card,
+    .btn-portal-primary,
+    .calendar-day,
+    .calendar-day .entry-badge,
+    .emotion-card-label,
+    .emotion-sphere-img,
+    .portal-alert,
+    .modal.fade .modal-dialog {
+        transition: none !important;
+        transform: none !important;
+        filter: none !important;
+    }
+
+    .portal-alert-closing {
+        opacity: 0 !important;
+        max-height: 0 !important;
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
+   Utilidades Institucionales UPEMOR (Índigo / Violeta WCAG AA)
+   ========================================================================== */
+.bg-indigo {
+    background-color: #4C1D95 !important;
+    color: #ffffff !important;
+}
+
+.bg-indigo-subtle {
+    background-color: #ede9fe !important;
+    color: #4c1d95 !important;
+    border: 1px solid #ddd6fe !important;
+}
+
+.text-indigo {
+    color: #4c1d95 !important;
+}
+
+/* ==========================================================================
+   BADGES DE ROLES Y ESTADOS — ACCESIBILIDAD WCAG AA (Ratio >= 4.5:1)
+   ========================================================================== */
+
+/* Badges de Roles Institucionales */
+.badge-rol-admin {
+    background-color: #ede9fe !important;
+    color: #4c1d95 !important;
+    border: 1px solid #c4b5fd !important;
+    font-weight: 600 !important;
+}
+
+.badge-rol-docente {
+    background-color: #e0f2fe !important;
+    color: #0369a1 !important;
+    border: 1px solid #bae6fd !important;
+    font-weight: 600 !important;
+}
+
+.badge-rol-alumno {
+    background-color: #e0e7ff !important;
+    color: #3730a3 !important;
+    border: 1px solid #c7d2fe !important;
+    font-weight: 600 !important;
+}
+
+.badge-rol-orientador {
+    background-color: #dcfce7 !important;
+    color: #166534 !important;
+    border: 1px solid #bbf7d0 !important;
+    font-weight: 600 !important;
+}
+
+/* Clases de compatibilidad Bootstrap */
+.text-purple {
+    color: #4c1d95 !important;
+}
+
+.bg-purple-subtle {
+    background-color: #ede9fe !important;
+    color: #4c1d95 !important;
+    border: 1px solid #ddd6fe !important;
+}
+
+.badge.bg-purple-subtle {
+    color: #4c1d95 !important;
+}
+
+/* Badges de Estados del Sistema */
+.badge-estado-activo,
+.badge-estado-aprobado,
+.badge-estado-publicado {
+    background-color: #dcfce7 !important;
+    color: #14532d !important;
+    border: 1px solid #86efac !important;
+    font-weight: 600 !important;
+}
+
+.badge-estado-inactivo,
+.badge-estado-rechazado,
+.badge-estado-cancelado {
+    background-color: #fee2e2 !important;
+    color: #991b1b !important;
+    border: 1px solid #fca5a5 !important;
+    font-weight: 600 !important;
+}
+
+.badge-estado-pendiente,
+.badge-estado-borrador {
+    background-color: #fef3c7 !important;
+    color: #92400e !important;
+    border: 1px solid #fde68a !important;
+    font-weight: 600 !important;
+}
+
+.badge-estado-concluido,
+.badge-estado-cerrada,
+.badge-estado-archivado {
+    background-color: #f1f5f9 !important;
+    color: #334155 !important;
+    border: 1px solid #cbd5e1 !important;
+    font-weight: 600 !important;
+}
+
+/* Botones de acción institucional reconocibles y accesibles */
+.btn-action-sm {
+    min-height: 34px;
+    padding: 0.25rem 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+/* Leyenda emocional institucional — Prevención estricta de salto de línea entre punto y texto (Incremento 13) */
+.emocion-leyenda-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+}
+
+.emocion-leyenda-dot {
+    width: 12px !important;
+    height: 12px !important;
+    border-radius: 50% !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+}
+
+/* ==========================================================================
+   SISTEMA GLOBAL DE NOTIFICACIONES (MÓDULO B — CAMPANA, RESALTADO Y TOAST 5S)
+   ========================================================================== */
+.notif-dropdown-item.is-unread,
+.notif-dropdown-item.es-no-leida {
+    background-color: #f3f0ff !important;
+    border-left: 4px solid #6366f1 !important;
+    border-bottom: 1px solid #e0e7ff !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.notif-dropdown-item.is-unread:hover,
+.notif-dropdown-item.es-no-leida:hover {
+    background-color: #ede9fe !important;
+}
+
+.notif-dropdown-item.is-read,
+.notif-dropdown-item.es-leida {
+    background-color: #ffffff !important;
+    border-left: 4px solid transparent !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    transition: background-color 0.2s ease;
+}
+
+.notif-dropdown-item.is-read:hover,
+.notif-dropdown-item.es-leida:hover {
+    background-color: #f8fafc !important;
+}
+
+.notif-unread-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4f46e5;
+    display: inline-block;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.notificacion-item.es-no-leida,
+.notificacion-item.is-unread {
+    background-color: #f3f0ff !important;
+    border-left: 4px solid #6366f1 !important;
+}
+
+.notificacion-item.es-leida,
+.notificacion-item.is-read {
+    background-color: #ffffff !important;
+    border-left: 4px solid transparent !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #liveNotificationToast,
+    .notif-dropdown-item,
+    .notificacion-item,
+    #toastProgressBar {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+

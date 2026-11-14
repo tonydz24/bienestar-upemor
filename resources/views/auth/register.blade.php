@@ -46,12 +46,7 @@
 
             @if ($errors->any())
                 <div class="alert alert-danger" role="alert">
-                    <strong>Corrige los siguientes errores:</strong>
-                    <ul class="mb-0 mt-2 ps-3">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                    <strong>Por favor, revisa y corrige los campos marcados en el formulario.</strong>
                 </div>
             @endif
 
@@ -69,9 +64,10 @@
                         required
                         autocomplete="given-name"
                         placeholder="Ingresa tu nombre"
+                        @error('nombre') aria-describedby="nombre-error" @enderror
                     >
                     @error('nombre')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        <div id="nombre-error" class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -87,13 +83,16 @@
                             required
                             autocomplete="family-name"
                             placeholder="Apellido paterno"
+                            @error('apellido_paterno') aria-describedby="apellido_paterno-error" @enderror
                         >
                         @error('apellido_paterno')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div id="apellido_paterno-error" class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="col-md-6">
-                        <label for="apellido_materno" class="form-label">Apellido materno</label>
+                        <label for="apellido_materno" class="form-label">
+                            Apellido materno <span class="text-muted small">(opcional)</span>
+                        </label>
                         <input
                             type="text"
                             name="apellido_materno"
@@ -102,9 +101,10 @@
                             value="{{ old('apellido_materno') }}"
                             autocomplete="family-name"
                             placeholder="Apellido materno"
+                            @error('apellido_materno') aria-describedby="apellido_materno-error" @enderror
                         >
                         @error('apellido_materno')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div id="apellido_materno-error" class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -120,10 +120,11 @@
                         required
                         autocomplete="email"
                         placeholder="ejemplo@upemor.edu.mx"
+                        @error('email') aria-describedby="email-error" @enderror
                     >
-                    <div class="form-text">Utiliza tu correo institucional de la universidad.</div>
+                    <div class="form-text">Utiliza tu correo institucional de la universidad (@upemor.edu.mx).</div>
                     @error('email')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        <div id="email-error" class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
 
@@ -132,49 +133,54 @@
                     <input
                         type="text"
                         name="matricula"
-                        class="form-control @error('matricula') is-invalid @enderror"
+                        class="form-control text-uppercase @error('matricula') is-invalid @enderror"
                         id="matricula"
                         value="{{ old('matricula') }}"
                         required
-                        placeholder="Ingresa tu matrícula"
+                        maxlength="10"
+                        placeholder="ADMO230179"
+                        @error('matricula') aria-describedby="matricula-error" @enderror
                     >
-                    <div class="form-text">Solo números y letras, sin espacios.</div>
                     @error('matricula')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        <div id="matricula-error" class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
 
-                <div class="row g-3">
-                    <div class="col-md-6">
-                        <label for="programa_id" class="form-label">Carrera</label>
-                        <select
-                            name="programa_id"
-                            class="form-select @error('programa_id') is-invalid @enderror"
-                            id="programa_id"
-                            required
-                        >
-                            <option value="">Selecciona tu carrera</option>
-                            @foreach ($programas as $programa)
-                                <option
-                                    value="{{ $programa->programa_id }}"
-                                    {{ old('programa_id') == $programa->programa_id ? 'selected' : '' }}
-                                >
-                                    {{ $programa->nombre }} ({{ $programa->clave }})
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('programa_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
+                <div class="mb-3">
+                    <label for="programa_id" class="form-label">Carrera</label>
+                    <select
+                        name="programa_id"
+                        class="form-select @error('programa_id') is-invalid @enderror"
+                        id="programa_id"
+                        required
+                        @error('programa_id') aria-describedby="programa_id-error" @enderror
+                    >
+                        <option value="">Selecciona tu carrera</option>
+                        @foreach ($programas as $programa)
+                            <option
+                                value="{{ $programa->programa_id }}"
+                                {{ old('programa_id') == $programa->programa_id ? 'selected' : '' }}
+                            >
+                                {{ $programa->nombre }} ({{ $programa->clave }})
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('programa_id')
+                        <div id="programa_id-error" class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label for="cuatrimestre" class="form-label">Cuatrimestre</label>
                         <select
                             name="cuatrimestre"
                             class="form-select @error('cuatrimestre') is-invalid @enderror"
                             id="cuatrimestre"
+                            required
+                            @error('cuatrimestre') aria-describedby="cuatrimestre-error" @enderror
                         >
-                            <option value="">No aplica</option>
+                            <option value="">Selecciona tu cuatrimestre</option>
                             @for ($i = 1; $i <= 10; $i++)
                                 <option value="{{ $i }}" {{ old('cuatrimestre') == $i ? 'selected' : '' }}>
                                     Cuatrimestre {{ $i }}
@@ -182,39 +188,108 @@
                             @endfor
                         </select>
                         @error('cuatrimestre')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div id="cuatrimestre-error" class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
+                        <label for="grupo" class="form-label">Grupo</label>
+                        <select
+                            name="grupo"
+                            class="form-select @error('grupo') is-invalid @enderror"
+                            id="grupo"
+                            required
+                            @error('grupo') aria-describedby="grupo-error" @enderror
+                        >
+                            <option value="">Selecciona tu grupo</option>
+                            @foreach (['A', 'B', 'C', 'D', 'E', 'F'] as $letra)
+                                <option value="{{ $letra }}" {{ old('grupo') == $letra ? 'selected' : '' }}>
+                                    Grupo {{ $letra }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('grupo')
+                            <div id="grupo-error" class="invalid-feedback d-block">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
 
-                <div class="mb-3 mt-3">
+                <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input
-                        type="password"
-                        name="password"
-                        class="form-control @error('password') is-invalid @enderror"
-                        id="password"
-                        required
-                        autocomplete="new-password"
-                        placeholder="Mínimo 12 caracteres"
-                    >
+                    <div class="input-group">
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control @error('password') is-invalid @enderror"
+                            id="password"
+                            required
+                            autocomplete="new-password"
+                            placeholder="Mínimo 12 caracteres"
+                            @error('password') aria-describedby="password-error" @enderror
+                        >
+                        <button
+                            type="button"
+                            class="auth-password-toggle"
+                            id="togglePassword"
+                            aria-label="Mostrar contraseña"
+                            aria-controls="password"
+                            aria-pressed="false"
+                        >
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                <path d="M2.5 12s3.4-5 9.5-5 9.5 5 9.5 5-3.4 5-9.5 5-9.5-5Z" />
+                                <circle cx="12" cy="12" r="2.2" />
+                            </svg>
+                            <svg class="eye-slash d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                                <line x1="2" y1="2" x2="22" y2="22" />
+                            </svg>
+                        </button>
+                    </div>
                     <div class="form-text">Usa una contraseña segura con mayúsculas, minúsculas, números y símbolos.</div>
                     @error('password')
-                        <div class="invalid-feedback">{{ $message }}</div>
+                        <div id="password-error" class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="mb-4">
                     <label for="password_confirmation" class="form-label">Confirmar contraseña</label>
-                    <input
-                        type="password"
-                        name="password_confirmation"
-                        class="form-control"
-                        id="password_confirmation"
-                        required
-                        autocomplete="new-password"
-                        placeholder="Repite tu contraseña"
-                    >
+                    <div class="input-group">
+                        <input
+                            type="password"
+                            name="password_confirmation"
+                            class="form-control @if($errors->has('password_confirmation') || ($errors->has('password') && str_contains((string) $errors->first('password'), 'no coinciden'))) is-invalid @endif"
+                            id="password_confirmation"
+                            required
+                            autocomplete="new-password"
+                            placeholder="Repite tu contraseña"
+                            @if($errors->has('password_confirmation') || ($errors->has('password') && str_contains((string) $errors->first('password'), 'no coinciden'))) aria-describedby="password-confirmation-error" @endif
+                        >
+                        <button
+                            type="button"
+                            class="auth-password-toggle"
+                            id="togglePasswordConfirm"
+                            aria-label="Mostrar confirmación de contraseña"
+                            aria-controls="password_confirmation"
+                            aria-pressed="false"
+                        >
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                <path d="M2.5 12s3.4-5 9.5-5 9.5 5 9.5 5-3.4 5-9.5 5-9.5-5Z" />
+                                <circle cx="12" cy="12" r="2.2" />
+                            </svg>
+                            <svg class="eye-slash d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                                <line x1="2" y1="2" x2="22" y2="22" />
+                            </svg>
+                        </button>
+                    </div>
+                    @if ($errors->has('password_confirmation'))
+                        <div id="password-confirmation-error" class="invalid-feedback d-block">{{ $errors->first('password_confirmation') }}</div>
+                    @elseif ($errors->has('password') && str_contains((string) $errors->first('password'), 'no coinciden'))
+                        <div id="password-confirmation-error" class="invalid-feedback d-block">Las contraseñas no coinciden.</div>
+                    @endif
                 </div>
 
                 <button type="submit" class="btn btn-primary auth-submit w-100">Registrarme</button>
@@ -226,3 +301,30 @@
         </section>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        function setupPasswordToggle(toggleId, inputId, labelText) {
+            const toggleBtn = document.getElementById(toggleId);
+            const input = document.getElementById(inputId);
+            if (!toggleBtn || !input) return;
+
+            toggleBtn.addEventListener('click', function () {
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                toggleBtn.setAttribute('aria-label', isPassword ? `Ocultar ${labelText}` : `Mostrar ${labelText}`);
+                toggleBtn.setAttribute('aria-pressed', String(isPassword));
+
+                const eyeOpen = toggleBtn.querySelector('.eye-open');
+                const eyeSlash = toggleBtn.querySelector('.eye-slash');
+                if (eyeOpen && eyeSlash) {
+                    eyeOpen.classList.toggle('d-none', isPassword);
+                    eyeSlash.classList.toggle('d-none', !isPassword);
+                }
+            });
+        }
+
+        setupPasswordToggle('togglePassword', 'password', 'contraseña');
+        setupPasswordToggle('togglePasswordConfirm', 'password_confirmation', 'confirmación de contraseña');
+    </script>
+@endpush

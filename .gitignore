@@ -1,48 +1,92 @@
-*.log
-.DS_Store
+# =========================================================================
+# BIENESTAR UPEMOR — REGLAS DE CONTROL DE VERSIONES (.gitignore)
+# =========================================================================
+
+# Entornos y Credenciales
 .env
 .env.*
 !.env.example
 .env.backup
 .env.production
-.phpactor.json
-.phpunit.result.cache
+.env.sandbox
+.env.testing
+auth.json
+
+# Respaldos de Base de Datos y Volcados SQL Locales
+*.sql
+*.dump
+*.backup
+/storage/app/backups/*
+!/storage/app/backups/.gitignore
+/storage/app/private/*
+!/storage/app/private/.gitignore
+/storage/app/*.json
+/storage/app/*.txt
+
+# Logs y Depuración
+*.log
+/storage/logs/*
+!/storage/logs/.gitignore
+/npm-debug.log*
+/yarn-debug.log*
+/yarn-error.log*
+
+# Dependencias de Backend y Frontend
+/vendor
+/node_modules
+
+# Caché del Framework Laravel y Sesiones
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+/storage/framework/cache/data/*
+!/storage/framework/cache/data/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/pail
+/bootstrap/cache/*.php
+!/bootstrap/cache/.gitignore
+
+# Almacenamiento Público y Assets Compilados por Vite
+/public/build
+/public/hot
+/public/storage
+
+# Bases de Datos Locales SQLite
 *.sqlite
 *.sqlite3
 *.sqlite-journal
 *.sqlite-wal
 *.sqlite-shm
+
+# Pruebas y Cobertura
+.phpunit.result.cache
+/.phpunit.cache
+
+# Editores e IDEs
+/.idea
+/.vscode
+/.fleet
+/.nova
+/.zed
+.phpactor.json
+Homestead.json
+Homestead.yaml
+
+# Archivos Temporales y del Sistema Operativo
 *.tmp
 *.temp
 *.bak
 *.swp
 *~
-/.fleet
-/.idea
-/.nova
-/.phpunit.cache
-/.vscode
-/.zed
-/auth.json
-/node_modules
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
-/storage/framework/cache/*
-/storage/framework/sessions/*
-/storage/framework/testing/*
-/storage/framework/views/*
-/storage/pail
-/bootstrap/cache/*.php
-/vendor
-/composer.phar
-/npm-debug.log*
-/yarn-debug.log*
-/yarn-error.log*
-/.npmrc
-/.yarnrc
-/.yarnrc.yml
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Certificados y Claves Privadas
 *.key
 *.pem
 *.p12
@@ -50,6 +94,4 @@
 *.jks
 *.crt
 *.cer
-Homestead.json
-Homestead.yaml
-Thumbs.db
+/storage/*.key

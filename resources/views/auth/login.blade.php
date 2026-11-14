@@ -57,8 +57,11 @@
                     @enderror
                 </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <label for="password" class="form-label mb-0">Contraseña</label>
+                        <a href="{{ route('password.request') }}" class="auth-link small" style="font-size: 0.8rem;">¿Olvidaste tu contraseña?</a>
+                    </div>
                     <div class="input-group">
                         <input
                             type="password"
@@ -78,22 +81,21 @@
                             aria-controls="password"
                             aria-pressed="false"
                         >
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                                <path d="M2.5 12s3.4-5 9.5-5 9.5 5 9.5 5-3.4 5-9.5 5-9.5-5-9.5-5Z" />
+                            <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                <path d="M2.5 12s3.4-5 9.5-5 9.5 5 9.5 5-3.4 5-9.5 5-9.5-5Z" />
                                 <circle cx="12" cy="12" r="2.2" />
+                            </svg>
+                            <svg class="eye-slash d-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                                <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+                                <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+                                <line x1="2" y1="2" x2="22" y2="22" />
                             </svg>
                         </button>
                     </div>
                     @error('password')
                         <div id="password-error" class="invalid-feedback d-block">{{ $message }}</div>
                     @enderror
-                </div>
-
-                <div class="d-flex align-items-center mb-4">
-                    <div class="form-check">
-                        <input type="checkbox" name="remember" class="form-check-input" id="remember">
-                        <label class="form-check-label" for="remember">Recordarme</label>
-                    </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary auth-submit w-100">Ingresar al sistema</button>
@@ -118,6 +120,13 @@
             password.type = isPassword ? 'text' : 'password';
             togglePassword.setAttribute('aria-label', isPassword ? 'Ocultar contraseña' : 'Mostrar contraseña');
             togglePassword.setAttribute('aria-pressed', String(isPassword));
+
+            const eyeOpen = togglePassword.querySelector('.eye-open');
+            const eyeSlash = togglePassword.querySelector('.eye-slash');
+            if (eyeOpen && eyeSlash) {
+                eyeOpen.classList.toggle('d-none', isPassword);
+                eyeSlash.classList.toggle('d-none', !isPassword);
+            }
         });
     </script>
 @endpush

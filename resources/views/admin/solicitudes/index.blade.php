@@ -1,9 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.dashboard')
 
 @section('title', 'Solicitudes de alumnos - Bienestar UPEMOR')
 
 @php
-    $etiquetas = ['PENDIENTE' => 'Pendiente', 'ACTIVO' => 'Aprobada', 'RECHAZADO' => 'Rechazada'];
+    $etiquetas = [
+        'TODOS' => 'Todos los estados',
+        'PENDIENTE' => 'Pendiente de revisión',
+        'ACTIVO' => 'Aprobada (Activo)',
+        'RECHAZADO' => 'Rechazada'
+    ];
 @endphp
 
 @section('content')
@@ -11,14 +16,6 @@
         <h1>Solicitudes de alumnos</h1>
         <p>Revisa las solicitudes de registro y decide si el alumno puede acceder a la plataforma.</p>
     </div>
-
-    @if (session('success'))
-        <div class="alert alert-success" role="status">{{ session('success') }}</div>
-    @endif
-
-    @if (session('error'))
-        <div class="alert alert-danger" role="alert">{{ session('error') }}</div>
-    @endif
 
     <section class="admin-card" aria-label="Listado de solicitudes">
         <form method="GET" action="{{ route('admin.solicitudes.index') }}" class="admin-filters" role="search">
@@ -36,7 +33,7 @@
             </div>
             <div class="admin-filters-actions">
                 <button type="submit" class="btn btn-primary">Filtrar</button>
-                <a href="{{ route('admin.solicitudes.index') }}" class="btn btn-outline-secondary">Limpiar</a>
+                <a href="{{ route('admin.solicitudes.index', ['estado' => 'TODOS']) }}" class="btn btn-outline-secondary">Limpiar</a>
             </div>
         </form>
 
@@ -62,7 +59,18 @@
                             <td>{{ $nombreCompleto }}</td>
                             <td>{{ $solicitud->estudiante->matricula }}</td>
                             <td>{{ $solicitud->email }}</td>
-                            <td>{{ $solicitud->estudiante->programa?->nombre }}</td>
+                            <td>
+                                <div class="fw-semibold text-dark">{{ $solicitud->estudiante->programa?->nombre ?? 'Programa Institucional' }}</div>
+                                <div class="small text-muted">
+                                    <span class="badge bg-light text-dark border">Plan: {{ $solicitud->estudiante->plan_estudio_asignado?->codigo ?? 'Resolución Automática' }}</span>
+                                    <span class="ms-1">Gen: <strong>{{ $solicitud->estudiante->generacion }}</strong></span>
+                                </div>
+                                @if($solicitud->estudiante?->cuatrimestre)
+                                    <div class="small text-muted mt-1">
+                                        Cuatrimestre {{ $solicitud->estudiante->cuatrimestre }} &bull; Grupo {{ $solicitud->estudiante->grupo ?? 'S/G' }}
+                                    </div>
+                                @endif
+                            </td>
                             <td>{{ $solicitud->created_at?->format('d/m/Y H:i') }}</td>
                             <td>
                                 <span class="badge admin-badge admin-badge-{{ strtolower($solicitud->estado) }}">
@@ -103,14 +111,61 @@
             <div class="mt-4">{{ $solicitudes->links('pagination::bootstrap-5') }}</div>
         @endif
     </section>
+
+    <!-- Modal Confirmar Acción en Solicitud -->
+    <div class="modal fade" id="modalConfirmarSolicitud" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold text-dark" id="modalConfirmarSolicitudTitulo">Confirmar acción</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body text-start">
+                    <p class="text-muted small mb-0" id="modalConfirmarSolicitudTexto">
+                        ¿Confirmas que deseas realizar esta acción sobre la solicitud del estudiante?
+                    </p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light btn-sm rounded-pill px-3" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary btn-sm rounded-pill px-4" id="btnConfirmarSolicitudAceptar">Continuar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
     <script>
-        document.querySelectorAll('form[data-confirm]').forEach((form) => {
-            form.addEventListener('submit', (event) => {
-                if (!window.confirm(form.dataset.confirm)) {
+        document.addEventListener('DOMContentLoaded', function() {
+            let pendingFormToSubmit = null;
+            const modalEl = document.getElementById('modalConfirmarSolicitud');
+            const modalTexto = document.getElementById('modalConfirmarSolicitudTexto');
+            const btnAceptar = document.getElementById('btnConfirmarSolicitudAceptar');
+            const bsModal = modalEl && window.bootstrap ? bootstrap.Modal.getOrCreateInstance(modalEl) : null;
+
+            document.querySelectorAll('form[data-confirm]').forEach((form) => {
+                form.addEventListener('submit', (event) => {
+                    if (form.dataset.confirmed === 'true') {
+                        return;
+                    }
                     event.preventDefault();
+                    pendingFormToSubmit = form;
+                    if (modalTexto && form.dataset.confirm) {
+                        modalTexto.textContent = form.dataset.confirm;
+                    }
+                    if (bsModal) {
+                        bsModal.show();
+                    } else {
+                        form.dataset.confirmed = 'true';
+                        form.submit();
+                    }
+                });
+            });
+
+            btnAceptar?.addEventListener('click', function() {
+                if (pendingFormToSubmit) {
+                    pendingFormToSubmit.dataset.confirmed = 'true';
+                    pendingFormToSubmit.submit();
                 }
             });
         });
