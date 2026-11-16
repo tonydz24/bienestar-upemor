@@ -17,8 +17,6 @@
         </div>
     </div>
 
-    @include('components.portal-alerts')
-
     <!-- KPI Cards (Filtros Interactivos) -->
     <div class="row g-3 mb-4">
         {{-- Total Encuestas --}}
@@ -310,7 +308,7 @@
                                                             @if ($enc->respuestas_count > 0)
                                                                 <div class="alert alert-danger border-0 small mb-3">
                                                                     <strong>Advertencia crítica de pérdida de datos:</strong>
-                                                                    Esta encuesta contiene <strong>{{ $enc->respuestas_count }} respuesta(s) registrada(s)</strong>.
+                                                                    Esta encuesta contiene <strong>{{ $enc->respuestas_count }} {{ $enc->respuestas_count === 1 ? 'respuesta registrada' : 'respuestas registradas' }}</strong>.
                                                                     Si continúas, se eliminarán definitivamente la encuesta y todas sus respuestas y estadísticas asociadas. Esta acción no se puede deshacer.
                                                                 </div>
                                                                 <p class="text-muted small mb-2">

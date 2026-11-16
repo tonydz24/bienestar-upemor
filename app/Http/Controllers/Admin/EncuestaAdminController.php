@@ -443,7 +443,8 @@ class EncuestaAdminController extends Controller
         if ($respuestasCount > 0) {
             $confirmacion = strtoupper(trim((string) $request->input('confirmacion_palabra', $request->input('confirmacion_eliminar', ''))));
             if ($confirmacion !== 'ELIMINAR') {
-                return back()->with('error', "Para eliminar definitivamente la encuesta '{$titulo}' con sus {$respuestasCount} respuesta(s) histórica(s), debes escribir la palabra de seguridad ELIMINAR.");
+                $respTexto = $respuestasCount === 1 ? 'su 1 respuesta histórica' : "sus {$respuestasCount} respuestas históricas";
+                return back()->with('error', "Para eliminar definitivamente la encuesta '{$titulo}' con {$respTexto}, debes escribir la palabra de seguridad ELIMINAR.");
             }
         }
 
@@ -462,13 +463,38 @@ class EncuestaAdminController extends Controller
             $encuesta->delete();
         });
 
-        $mensaje = $respuestasCount > 0
-            ? "La encuesta '{$titulo}', sus {$preguntasCount} preguntas y sus {$respuestasCount} respuestas asociadas han sido eliminadas definitivamente."
-            : "La encuesta '{$titulo}' ha sido eliminada exitosamente.";
+        $mensaje = $this->construirMensajeEliminacion($titulo, $preguntasCount, $respuestasCount);
 
         return redirect()->route('admin.encuestas.index')
-            ->with('success', $mensaje)
-            ->with('status', $mensaje);
+            ->with('success', $mensaje);
+    }
+
+    /**
+     * Construye un mensaje de confirmación gramaticalmente concordante
+     * según la cantidad de preguntas y respuestas asociadas a la encuesta eliminada.
+     */
+    private function construirMensajeEliminacion(string $titulo, int $preguntasCount, int $respuestasCount): string
+    {
+        if ($preguntasCount > 0 && $respuestasCount > 0) {
+            $pregTexto = $preguntasCount === 1 ? 'su 1 pregunta' : "sus {$preguntasCount} preguntas";
+            $respTexto = $respuestasCount === 1 ? 'su 1 respuesta asociada' : "sus {$respuestasCount} respuestas asociadas";
+
+            return "La encuesta '{$titulo}', {$pregTexto} y {$respTexto} han sido eliminadas definitivamente.";
+        }
+
+        if ($preguntasCount > 0 && $respuestasCount === 0) {
+            $pregTexto = $preguntasCount === 1 ? 'su 1 pregunta asociada' : "sus {$preguntasCount} preguntas asociadas";
+
+            return "La encuesta '{$titulo}' y {$pregTexto} han sido eliminadas definitivamente.";
+        }
+
+        if ($preguntasCount === 0 && $respuestasCount > 0) {
+            $respTexto = $respuestasCount === 1 ? 'su 1 respuesta asociada' : "sus {$respuestasCount} respuestas asociadas";
+
+            return "La encuesta '{$titulo}' y {$respTexto} han sido eliminadas definitivamente.";
+        }
+
+        return "La encuesta '{$titulo}' ha sido eliminada definitivamente.";
     }
 }
 
